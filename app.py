@@ -5,11 +5,15 @@ from sklearn.neighbors import NearestNeighbors
 import numpy as np
 
 app = Flask(__name__)
-
 CORS(app)
+
 # Load and prepare the data
 file_path = 'location.xlsx'  # Update this with the path to your Excel file
-location_data = pd.read_excel(file_path)
+try:
+    location_data = pd.read_excel(file_path)
+except FileNotFoundError:
+    raise FileNotFoundError(f"The file '{file_path}' was not found.")
+
 location_data.columns = location_data.columns.str.strip()  # Remove extra spaces in column names
 
 # Extract coordinates and names
@@ -27,18 +31,20 @@ def find_nearest_location(lat, lon):
     distance_km = distance[0][0] * 6371  # Convert from radians to kilometers
     nearest_name = names[index[0][0]]
     return nearest_name, distance_km
-@app.route('/',methods=['GET'])
-def Home():
-    return jsonify("Welccome to my api to get minimum distance using lat and lon"),200
+
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify("Welcome to my API to get minimum distance using latitude and longitude"), 200
+
 # Define the API endpoint
 @app.route('/nearest_location', methods=['GET'])
 def nearest_location():
-    lat = request.args.get("lat")
-    lon=request.args.get("lon")
-    
-    if lat is None or lon is None:
-        return jsonify({"error": "Please provide both latitude and longitude"}), 400
-    
+    try:
+        lat = float(request.args.get("lat"))
+        lon = float(request.args.get("lon"))
+    except (TypeError, ValueError):
+        return jsonify({"error": "Please provide valid numeric values for latitude and longitude"}), 400
+
     # Find the nearest location
     nearest_name, min_distance = find_nearest_location(lat, lon)
     
@@ -46,4 +52,4 @@ def nearest_location():
     return jsonify({
         "nearest_location": nearest_name,
         "minimum_distance_km": round(min_distance, 2)
-    })
+    }), 200
