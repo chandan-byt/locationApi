@@ -1,0 +1,26 @@
+VERSION 9/30/2024 9:49:49 AM
+FIG #C:\Users\ETCACELAB-01\Documents\jayesh\vlsi\cmos_inverter\cmos_invertr.MSK
+BB(-6,-35,100,75)
+SIMU #5.00
+REC(-6,13,106,62,NW)
+REC(50,50,11,10,DP)
+REC(50,19,11,21,DP)
+REC(49,-14,11,14,DN)
+REC(49,-35,11,10,DN)
+REC(49,19,13,6,CO)
+REC(49,-4,9,4,CO)
+REC(20,-25,55,11,PO)
+REC(20,-14,10,54,PO)
+REC(20,40,50,10,PO)
+REC(50,-4,11,30,ME)
+REC(50,40,11,10,DP)
+REC(49,-25,11,11,DN)
+TITLE 54 55  #Vdd
+$1 1000 0 
+TITLE 52 -31  #Vss
+$0 1000 0 
+TITLE 26 8  #V_in
+$c 1000 0 1.0000 1.5000 2.5000 3.0000 
+TITLE 53 10  #V_out
+$v 1000 0 
+FFIG C:\Users\ETCACELAB-01\Documents\jayesh\vlsi\cmos_inverter\cmos_invertr.MSK
