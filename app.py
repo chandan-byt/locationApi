@@ -27,15 +27,14 @@ def find_nearest_location(lat, lon):
     distance_km = distance[0][0] * 6371  # Convert from radians to kilometers
     nearest_name = names[index[0][0]]
     return nearest_name, distance_km
-
+@app.route('/',methods=['GET'])
+def Home():
+    return jsonify("Welccome to my api to get minimum distance using lat and lon"),200
 # Define the API endpoint
-@app.route('/nearest_location', methods=['POST'])
+@app.route('/nearest_location', methods=['GET'])
 def nearest_location():
-    data = request.get_json()  # Expect JSON input with 'latitude' and 'longitude'
-    
-    # Extract latitude and longitude from request
-    lat = data.get('latitude')
-    lon = data.get('longitude')
+    lat = request.args.get("lat")
+    lon=request.args.get("lon")
     
     if lat is None or lon is None:
         return jsonify({"error": "Please provide both latitude and longitude"}), 400
