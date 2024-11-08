@@ -3,4 +3,5 @@ Flask-Cors
 pandas
 scikit-learn
 numpy
+openpyxl
 gunicorn
